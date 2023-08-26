@@ -25,6 +25,10 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 
+/**
+ * this calss is used to transform the xml file to the required format
+ */
+
 public class EmployeeTransformer extends Config {
 
 	private static final ArrayList<Map<String, String>> l = new ArrayList<Map<String, String>>();
@@ -37,6 +41,9 @@ public class EmployeeTransformer extends Config {
 				.parse("src/resources/EmployeeResponse.xml");
 		XPath x = XPathFactory.newInstance().newXPath();
 		int n = Integer.parseInt((String) x.compile("count(//Employees/Employee)").evaluate(d, XPathConstants.STRING));
+		/*
+		 * this loop is used to get the values from the xml file and store them in a map
+		 */
 		for (int i = 1; i <= n; i++) {
 			m = new HashMap<String, String>();
 			m.put("XpathEmployeeIDKey", (String) x.compile("//Employees/Employee[" + i + "]/EmployeeID/text()")

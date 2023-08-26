@@ -20,6 +20,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
+/* *
+ * this class is used to perform the database operations
+ */
 public class EmployeeRepository extends Config {
 
 	private final ArrayList<Employee> el = new ArrayList<Employee>();
@@ -30,15 +33,21 @@ public class EmployeeRepository extends Config {
 
 	private PreparedStatement e4;
 
+	/*
+	 * this constructor is used to connect to the database
+	 */
 	public EmployeeRepository() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			e2 = DriverManager.getConnection(config.getProperty("url"), config.getProperty("username"),
 					config.getProperty("password"));
 		} catch (Exception e) {
-		} 
+		}
 	}
 
+	/*
+	 * this method is used to get the employee details from the xml file
+	 */
 	public void e1() {
 
 		try {
@@ -59,6 +68,9 @@ public class EmployeeRepository extends Config {
 		}
 	}
 
+	/*
+	 * this method is used to create the employee table
+	 */
 	public void create() {
 		try {
 			e3 = e2.createStatement();
@@ -68,11 +80,14 @@ public class EmployeeRepository extends Config {
 		}
 	}
 
+	/*
+	 * this method is used to insert many employee details to the database
+	 */
 	public void createMany() {
 		try {
 			e4 = e2.prepareStatement(EmployeeUtil.getEmployeeById("q3"));
 			e2.setAutoCommit(false);
-			for(int i = 0; i < el.size(); i++){
+			for (int i = 0; i < el.size(); i++) {
 				Employee e = el.get(i);
 				e4.setString(1, e.getId());
 				e4.setString(2, e.getFullName());
@@ -88,6 +103,9 @@ public class EmployeeRepository extends Config {
 		}
 	}
 
+	/*
+	 * this method is used to delete one employee details to the database
+	 */
 	public void deleteEmployee(String eid) {
 		try {
 			e4 = e2.prepareStatement(EmployeeUtil.getEmployeeById("q6"));
@@ -99,6 +117,9 @@ public class EmployeeRepository extends Config {
 		}
 	}
 
+	/*
+	 * this method is used to update one employee details to the database
+	 */
 	public void display() {
 		ArrayList<Employee> employees = new ArrayList<Employee>();
 		try {
@@ -118,14 +139,16 @@ public class EmployeeRepository extends Config {
 		}
 		printList(employees);
 	}
-	
-	public void printList(ArrayList<Employee> employees){
+
+	public void printList(ArrayList<Employee> employees) {
 		System.out.println("Employee ID" + "\t\t" + "Full Name" + "\t\t" + "Address" + "\t\t" + "Faculty Name" + "\t\t"
 				+ "Department" + "\t\t" + "Designation" + "\n");
-		System.out.println("================================================================================================================");
-		for (Employee e: employees) {
+		System.out.println(
+				"================================================================================================================");
+		for (Employee e : employees) {
 			System.out.println(e.toString());
-			System.out.println("----------------------------------------------------------------------------------------------------------------");
+			System.out.println(
+					"----------------------------------------------------------------------------------------------------------------");
 		}
 	}
 }

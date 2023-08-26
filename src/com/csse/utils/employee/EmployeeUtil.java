@@ -17,6 +17,9 @@ public class EmployeeUtil extends Config {
 
 	private static final Logger logger = Logger.getLogger("Main");
 
+	/*
+	 * this method is used to get the employee query from the xml file
+	 */
 	public static String getEmployeeById(String id) throws Exception {
 		try {
 			NodeList n;
